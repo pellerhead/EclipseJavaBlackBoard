@@ -21,3 +21,19 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Maven based Java Project
+target/
+*.logs
+*.iml
+.idea/
+.eclipse
+
+# Important Dot files in your Home folder
+# ignore everything ...
+/*
+# ... but the following
+!/.profile
+!/.bash_rc
+!/.bash_profile
+!/.curlrc
