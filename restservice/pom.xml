@@ -6,7 +6,7 @@
 	<groupId>com.nelson.greg</groupId>
 	<artifactId>restservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!--  <packaging>war</packaging> -->
+	<!-- <packaging>war</packaging> -->
 	<packaging>jar</packaging>
 
 	<parent>
@@ -28,12 +28,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
 		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
