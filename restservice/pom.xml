@@ -7,7 +7,7 @@
 	<groupId>com.nelson.greg</groupId>
 	<artifactId>restservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-<!-- 	<packaging>jar</packaging> -->
+	<!-- <packaging>jar</packaging> -->
 	<packaging>war</packaging>
 
 	<name>rest-service</name>
@@ -47,6 +47,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
