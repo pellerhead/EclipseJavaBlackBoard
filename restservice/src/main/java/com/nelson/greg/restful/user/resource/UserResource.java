@@ -1,7 +1,9 @@
-package com.nelson.greg.restful.user.controller;
+package com.nelson.greg.restful.user.resource;
 
+import java.math.BigInteger;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -16,24 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nelson.greg.restful.exception.UserNotFoundException;
-import com.nelson.greg.restful.user.domain.User;
-import com.nelson.greg.restful.user.domain.UserDaoService;
+import com.nelson.greg.restful.repository.UserRepository;
+import com.nelson.greg.restful.user.entity.User;
+
 
 @RestController
-public class UserController {
+public class UserResource {
 
 	@Autowired
-	private UserDaoService service;
+	private UserRepository userRepository;
 
 	@GetMapping(path = "/users")
 	public List<User> retrieveAllUsers() {
-		return service.findAll();
+		return userRepository.findAll();
 	}
 
 	@GetMapping(path = "/users/{id}")
-	public User retrieveUser(@PathVariable int id) {
-		User user = service.findOne(id);
-		if (user == null) {
+	public Optional<User> retrieveUser(@PathVariable BigInteger id) {
+		Optional<User> user = userRepository.findById(id);
+		if (!user.isPresent()) {
 			throw new UserNotFoundException("User ID :" + id + " NOT FOUND!");
 		} else
 			return user;
@@ -41,7 +44,7 @@ public class UserController {
 
 	@PostMapping("/users")
 	public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
-		User savedUser = service.save(user);
+		User savedUser = userRepository.save(user);
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId())
 				.toUri();
@@ -50,12 +53,8 @@ public class UserController {
 	}
 
 	@DeleteMapping("/users/{id}")
-	public void deleteById(@PathVariable int id) {
-		User user = service.deleteById(id);
-
-		if (user == null) {
-			throw new UserNotFoundException("User ID :" + id + " NOT FOUND!");
-		}
+	public void deleteById(@PathVariable BigInteger id) {
+		userRepository.deleteById(id);
 	}
 
 }

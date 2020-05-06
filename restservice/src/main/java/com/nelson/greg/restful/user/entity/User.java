@@ -1,7 +1,11 @@
-package com.nelson.greg.restful.user.domain;
+package com.nelson.greg.restful.user.entity;
 
+import java.math.BigInteger;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -9,9 +13,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description="Domain User")
+@Entity
 public class User {
 
-	private Integer id;
+	@Id
+	@GeneratedValue
+	private BigInteger id;
 	
 	@Size(min=2, message="Name should have atleast 2 characters")
 	@ApiModelProperty(notes="Name should have atleast 2 characters")
@@ -25,18 +32,18 @@ public class User {
 		super();
 	}
 
-	public User(Integer id, String name, Date birthDate) {
+	public User(BigInteger id, String name, Date birthDate) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.birthDate = birthDate;
 	}
 
-	public Integer getId() {
+	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(BigInteger id) {
 		this.id = id;
 	}
 
