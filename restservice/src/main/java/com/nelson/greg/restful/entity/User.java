@@ -1,32 +1,37 @@
-package com.nelson.greg.restful.user.entity;
+package com.nelson.greg.restful.entity;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description="Domain User")
+@ApiModel(description = "Domain User")
 @Entity
 public class User {
 
 	@Id
 	@GeneratedValue
 	private BigInteger id;
-	
-	@Size(min=2, message="Name should have atleast 2 characters")
-	@ApiModelProperty(notes="Name should have atleast 2 characters")
+
+	@Size(min = 2, message = "Name should have atleast 2 characters")
+	@ApiModelProperty(notes = "Name should have atleast 2 characters")
 	private String name;
-	
+
 	@Past
-	@ApiModelProperty(notes="Birth date should not be in the future")
+	@ApiModelProperty(notes = "Birth date should not be in the future")
 	private Date birthDate;
+
+	@OneToMany(mappedBy = "user")
+	private List<Post> posts;
 
 	protected User() {
 		super();
@@ -63,6 +68,14 @@ public class User {
 		this.birthDate = birthDate;
 	}
 
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,6 +83,7 @@ public class User {
 		result = prime * result + ((birthDate == null) ? 0 : birthDate.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((posts == null) ? 0 : posts.hashCode());
 		return result;
 	}
 
@@ -97,12 +111,17 @@ public class User {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (posts == null) {
+			if (other.posts != null)
+				return false;
+		} else if (!posts.equals(other.posts))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
+		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + ", posts=" + posts + "]";
 	}
 
 }
